@@ -1,4 +1,4 @@
-# Concert Application
+# Lead Capture Form 
 
 This repository contains the codebase for the **Concert Application**, a web application designed for managing concerts. The instructions below will guide you through the process of pulling the latest changes, building the Docker image, and running the application locally.
 
