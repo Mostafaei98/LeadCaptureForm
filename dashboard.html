@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome To Concert</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form id="concertForm" autocomplete="off" method="POST">
+        <h2>Welcome</h2>
+        <div class="uc"><b>Concert</b></div>
+        <a href="/download-excel" class="download">Download File</a>
+      </form>
+    </div>
+    <script>
+      window.onload = () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          window.location.href = '/signin';
+        }
+      };
+    </script>
+  </body>
+</html>

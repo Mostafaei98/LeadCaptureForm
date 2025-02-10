@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome To Concert</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form id="concertForm" autocomplete="off" method="POST">
+        <h2>Welcome</h2>
+        <div class="uc"><b>Concert</b></div>
+
+        <!-- Username Field -->
+        <div class="inputBox">
+          <input type="text" id="username" name="username" required />
+          <label for="username">Username</label>
+        </div>
+
+        <!-- Password Field -->
+        <div class="inputBox">
+          <input type="password" id="password" name="password" required />
+          <label for="password">Password</label>
+        </div>
+
+        <input type="submit" value="Login" />
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById('concertForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+          const data = {
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value,
+          };
+
+          // ارسال داده‌ها به سرور
+          fetch('/signin', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                localStorage.setItem('token', `Bearer ${data.token}`);
+                fetch('/authentication', {
+                  method: 'GET',
+                  headers: {
+                    Authorization: `Bearer ${data.token}`,
+                  },
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    if (data.success) {
+                      window.location.href = '/dashboard';
+                    }
+                  });
+              } else {
+                alert('Invalid credentials');
+              }
+            })
+            .catch((error) => {
+              alert('Error: ' + error);
+            });
+        });
+    </script>
+  </body>
+</html>

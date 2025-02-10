@@ -1,5 +1,73 @@
-<html>
-	<body>
-	<a ref=https://etmacard.ir> Jaber Mostafaie</a>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome To Concert</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form id="concertForm" autocomplete="off" method="POST">
+        <h2>Welcome</h2>
+        <div class="uc"><b>Concert</b></div>
+
+        <div class="inputBox">
+          <input type="text" id="mobile" />
+          <label for="mobile">Mobile</label>
+        </div>
+
+        <div class="inputBox">
+          <input type="email" id="email" />
+          <label for="email">Email</label>
+        </div>
+        <div class="inputBox">
+          <input type="text" id="instagram" />
+          <label for="instagram">Instagram</label>
+        </div>
+        <div class="inputBox">
+          <input type="telegram" id="telegram" />
+          <label for="telegram">Telegram</label>
+        </div>
+
+        <input type="submit" value="Register" />
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("concertForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // جلوگیری از رفرش صفحه
+
+          const data = {
+            mobile: document.getElementById("mobile").value,
+            email: document.getElementById("email").value,
+            instagram: document.getElementById("instagram").value,
+            telegram: document.getElementById("telegram").value,
+          };
+
+          fetch("/save", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert("Data saved successfully!");
+                window.location.href = "https://www.iranconcert.com";
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch((error) => {
+
+              alert("Error: " + error);
+            });
+        });
+    </script>
+  </body>
 </html>
